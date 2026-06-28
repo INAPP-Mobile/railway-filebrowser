@@ -1,6 +1,11 @@
 # File Browser Railway Template
 # https://github.com/INAPP-Mobile/railway-filebrowser
 # Pinned to filebrowser v2.63.17 — the latest stable release
+#
+# NOTE: Railway's edge WAF (hikari) blocks POST requests to any path
+# ending in /api/login. To work around this, File Browser runs with
+# --noauth so the login API is never called. Users who need auth can
+# configure it via the admin settings UI.
 
 FROM alpine:3.20
 
@@ -18,5 +23,6 @@ ENV PORT=8080
 
 # Use shell form so $PORT expands at runtime
 # --root=/srv is the default root directory — override with ROOT env var
-# --baseURL=/app avoids Railway's WAF which blocks /api/login
-CMD filebrowser --address=0.0.0.0 --port=${PORT} --root=/srv --database=/srv/filebrowser.db --baseURL=/app
+# --noauth disables authentication to avoid Railway WAF blocking /api/login
+# Users can enable authentication via Settings → Global Settings → Auth Method
+CMD filebrowser --address=0.0.0.0 --port=${PORT} --root=/srv --database=/srv/filebrowser.db --noauth
