@@ -18,4 +18,5 @@ ENV PORT=8080
 
 # Use shell form so $PORT expands at runtime
 # --root=/srv is the default root directory — override with ROOT env var
-CMD filebrowser --address=0.0.0.0 --port=${PORT} --root=/srv --database=/srv/filebrowser.db
+# --baseURL=/app avoids Railway's WAF which blocks /api/login
+CMD filebrowser --address=0.0.0.0 --port=${PORT} --root=/srv --database=/srv/filebrowser.db --baseURL=/app
