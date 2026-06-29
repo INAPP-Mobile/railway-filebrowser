@@ -20,6 +20,9 @@ RUN apk add --no-cache ca-certificates wget \
 EXPOSE 8080
 
 ENV PORT=8080
+ENV ROOT=/srv
+ENV FB_USERNAME=admin
+ENV FB_DATABASE=/srv/filebrowser.db
 
 # Use shell form so $PORT expands at runtime
 # --root=/srv is the default root directory — override with ROOT env var
