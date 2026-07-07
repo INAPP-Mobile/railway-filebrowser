@@ -1,18 +1,18 @@
-[
-  {
+{
+  "PORT": {
     "value": "8080",
     "description": "Port File Browser listens on (default: 8080). Railway injects PORT for routing."
   },
-  {
+  "ROOT": {
     "value": "/srv",
     "description": "Root directory to serve via the file browser (default: /srv). Mount a volume here for persistence."
   },
-  {
+  "FB_USERNAME": {
     "value": "admin",
     "description": "Default admin username for the web UI."
   },
-  {
+  "FB_PASSWORD": {
     "value": "${{secret(16)}}",
     "description": "Default admin password. Auto-generated on first deploy."
   }
-]
+}

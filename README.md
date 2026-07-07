@@ -1,6 +1,6 @@
 # File Browser — Railway Template
 
-[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/template/xxxxx)
+[![Deploy on Railway](https://railway.app/button.svg)](https://railway.com/new/template/filebrowser)
 
 Deploy [File Browser](https://github.com/filebrowser/filebrowser) — a web-based file manager — on Railway in minutes.
 
@@ -135,7 +135,7 @@ Image processing is CPU-intensive. Adjust the `--img-processors` flag if needed 
 
 Deploy File Browser to Railway in one click. No local environment setup required — the containerized image includes everything needed for your file management needs on production-grade infrastructure with automatic HTTPS.
 
-[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/template/mpapKR)
+[![Deploy on Railway](https://railway.app/button.svg)](https://railway.com/new/template/filebrowser)
 
 ### Quick Deploy Steps
 
