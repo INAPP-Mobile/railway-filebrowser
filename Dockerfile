@@ -24,8 +24,7 @@ ENV ROOT=/srv
 ENV FB_USERNAME=admin
 ENV FB_DATABASE=/srv/filebrowser.db
 
-# Use shell form so $PORT expands at runtime
-# --root=/srv is the default root directory — override with ROOT env var
-# --noauth disables authentication to avoid Railway WAF blocking /api/login
-# Users can enable authentication via Settings → Global Settings → Auth Method
-CMD filebrowser --address=0.0.0.0 --port=${PORT} --root=/srv --database=/srv/filebrowser.db --noauth
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+ENTRYPOINT ["/entrypoint.sh"]
