@@ -21,7 +21,6 @@ EXPOSE 8080
 
 ENV PORT=8080
 ENV ROOT=/srv
-ENV FB_USERNAME=admin
 ENV FB_DATABASE=/srv/filebrowser.db
 
 COPY entrypoint.sh /entrypoint.sh

@@ -49,10 +49,9 @@ Click the Deploy button above, then configure these environment variables:
 |----------------|------------|--------------------------------------------|
 | `PORT`         | `8080`     | HTTP port (Railway sets this automatically) |
 | `ROOT`         | `/srv`     | Root directory to serve                     |
-| `FB_USERNAME`  | `admin`    | Default admin username (first run only)     |
-| `FB_PASSWORD`  | *(unset)*  | Default admin password (plain text, first run) |
+| `FB_DATABASE`  | `/srv/filebrowser.db` | Database file path (persisted on volume) |
 
-On first startup, File Browser creates an admin user automatically. You can log in with credentials configured via env vars.
+> **Note:** This deployment runs File Browser in `--noauth` mode because Railway's edge WAF blocks the login API (`POST /api/login`). There is no username/password login on first boot — anyone with the URL can access files. You can restrict access with a [Railway TCP Proxy + auth proxy](https://railway.com/docs/reference/tcp-proxies) or enable auth via the admin settings UI after deploy.
 
 ## Local Development
 
@@ -85,10 +84,8 @@ File Browser supports environment variables for configuration. These are passed 
 | `--address`        | —           | `0.0.0.0`     | Bind address                            |
 | `--root`           | `ROOT`      | `/srv`        | Root directory to serve                 |
 | `--database`       | `FB_DATABASE` | `/srv/filebrowser.db` | Database path                 |
-| `--username`       | `FB_USERNAME` | `admin`      | First user's username                   |
-| `--password`       | `FB_PASSWORD` | *(auto-gen)* | First user's password (hashed)          |
-| `--noauth`         | —           | `false`       | Disable authentication (not recommended) |
-| `--baseurl`        | `FB_BASEURL` | `""`         | Base URL for reverse proxy              |
+| `--noauth`         | —           | `true`        | Auth disabled (required for Railway WAF) |
+| `--baseurl`        | `FB_BASEURL` | ""          | Base URL for reverse proxy              |
 | `--cache-dir`      | —           | `""`          | File cache directory                    |
 
 ### Advanced: Custom Configuration File
@@ -103,9 +100,9 @@ Then mount it at `/srv/filebrowser.json` or use `--config` flag.
 
 ## Troubleshooting
 
-### Unable to log in
+### File access is wide open (no login)
 
-The default admin credentials are set via `FB_USERNAME` and `FB_PASSWORD`. If these are not set, File Browser generates a random password on first startup. Check your Railway logs for the generated credentials.
+This deployment intentionally runs in `--noauth` mode because Railway's edge WAF blocks the login API (`POST /api/login`). Anyone with the deploy URL can read and write files in `ROOT`. Restrict access with a [Railway TCP Proxy + auth proxy](https://railway.com/docs/reference/tcp-proxies) in front, or mount a [VPN](https://railway.com/docs/reference/vpn) for private access.
 
 ### Files not visible
 
@@ -140,9 +137,10 @@ Deploy File Browser to Railway in one click. No local environment setup required
 ### Quick Deploy Steps
 
 1. Click the **Deploy to Railway** button above
-2. Set `FB_USERNAME` and `FB_PASSWORD` environment variables (optional but recommended)
-3. Click **Deploy** — the build takes ~30 seconds
-4. Visit your new file browser at the generated `*.up.railway.app` URL
+2. Click **Deploy** — the build takes ~30 seconds
+3. Visit your new file browser at the generated `*.up.railway.app` URL
+
+> **Note:** This deployment runs in `--noauth` mode so the login API is never used (Railway's edge WAF blocks it). Restrict public access with a [TCP Proxy + auth proxy](https://railway.com/docs/reference/tcp-proxies) if needed.
 
 ### Environment Variables
 
@@ -150,8 +148,7 @@ Deploy File Browser to Railway in one click. No local environment setup required
 |----------|----------|---------|-------------|
 | `PORT` | No | `8080` | HTTP listen port (Railway sets this automatically) |
 | `ROOT` | No | `/srv` | Root directory to serve files from |
-| `FB_USERNAME` | No | `admin` | First admin username (ignored if admin already exists) |
-| `FB_PASSWORD` | No | _auto-generated_ | Default password on first run — set explicitly for reproducibility |
+| `FB_DATABASE` | No | `/srv/filebrowser.db` | Embedded database file path (persisted on volume) |
 
 ### Persistent Storage
 

@@ -7,12 +7,8 @@
     "value": "/srv",
     "description": "Root directory to serve via the file browser (default: /srv). Mount a volume here for persistence."
   },
-  "FB_USERNAME": {
-    "value": "admin",
-    "description": "Default admin username for the web UI."
-  },
-  "FB_PASSWORD": {
-    "value": "${{secret(16)}}",
-    "description": "Default admin password. Auto-generated on first deploy."
+  "FB_DATABASE": {
+    "value": "/srv/filebrowser.db",
+    "description": "Path to the File Browser database (default: /srv/filebrowser.db). Stored on the volume for persistence."
   }
 }
