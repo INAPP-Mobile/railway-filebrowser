@@ -9,7 +9,7 @@
 
 FROM alpine:3.20
 
-ARG FB_VERSION=2.63.17
+ARG FB_VERSION=2.63.23
 
 RUN apk add --no-cache ca-certificates wget \
     && wget -q https://github.com/filebrowser/filebrowser/releases/download/v${FB_VERSION}/linux-amd64-filebrowser.tar.gz \
