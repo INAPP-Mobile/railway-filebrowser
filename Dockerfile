@@ -7,7 +7,7 @@
 # --noauth so the login API is never called. Users who need auth can
 # configure it via the admin settings UI.
 
-FROM alpine:3.20
+FROM alpine:3.24
 
 ARG FB_VERSION=2.63.23
 
